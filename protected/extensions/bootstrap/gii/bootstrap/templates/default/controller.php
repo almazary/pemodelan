@@ -21,7 +21,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
+			'rights', // perform access control for CRUD operations
 		);
 	}
 

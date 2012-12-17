@@ -16,11 +16,32 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
-                'application.modules.user.models.Anggota',
+		'application.modules.rights.*',
+		'application.modules.rights.components.*',	
+                'application.modules.anggota.models.Anggota'
 	),
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
+		'rights'=>array(
+			'superuserName' => 'admin',
+			'authenticatedName' => 'Authenticated',
+                        'userIdColumn'=>'anggota_id',
+                        'userNameColumn'=>'anggota_username',
+                        'enableBizRule'=>true,
+                        'enableBizRuleData'=>false,
+                        'displayDescription'=>true,
+                        'flashSuccessKey'=>'RightsSuccess',
+                        'flashErrorKey'=>'RightsError',
+                        'baseUrl'=>'/rights',
+                        'layout'=>'rights.views.layouts.main',
+                        'appLayout'=>'application.views.layouts.main',
+                        'cssFile'=>'rights.css',
+                        'debug'=>false,
+                        'userClass'=>'Anggota',
+                    //'install'=>true
+		),
+		
 		
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
@@ -36,7 +57,9 @@ return array(
                 'flowchart',
                 'erd',
                 'proyek',
-				'user',
+		'anggota',
+		'alamat',
+                'perusahaan',
 		
 	),
 
@@ -45,9 +68,19 @@ return array(
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
+                        'class'=>'RWebUser',
 		),
 		// uncomment the following to enable URLs in path-format
-		
+                'authManager'=>array(
+                    'class'=>'RDbAuthManager',
+                    'connectionID'=>'db',
+                    'itemTable'=>'AuthItem',
+                    'itemChildTable'=>'AuthItemChild',
+                    'assignmentTable'=>'AuthAssignment',
+                    'rightsTable'=>'Rights',
+                    
+                ),
+            
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'rules'=>array(

@@ -21,12 +21,12 @@ class UserIdentity extends CUserIdentity
         public function authenticate()
 	{
                 
-		$users=array(
+		/*$users=array(
 			// username => password
 			'demo'=>'demo',
 			'admin'=>'admin',
 		);
-                /*
+                */
                 $username = strtolower($this->username);
                 $user = Anggota::model()->find('Lower(anggota_username)=?',array($username));
                 
@@ -41,14 +41,18 @@ class UserIdentity extends CUserIdentity
                     $this->username = $user->anggota_username;
                     $this->errorCode=self::ERROR_NONE;
                 }
-                */
+                /*
 		if(!isset($users[$this->username]))
 			$this->errorCode=self::ERROR_USERNAME_INVALID;
 		else if($users[$this->username]!==$this->password)
 			$this->errorCode=self::ERROR_PASSWORD_INVALID;
 		else
 			$this->errorCode=self::ERROR_NONE;
-                
+                */
 		return !$this->errorCode;
 	}
+        
+        public function getId() {
+            return $this->_id;
+        }
 }
